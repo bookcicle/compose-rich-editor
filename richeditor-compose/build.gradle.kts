@@ -35,9 +35,9 @@ kotlin {
         }
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+//    iosX64()
+//    iosArm64()
+//    iosSimulatorArm64()
 
     sourceSets {
         val commonMain by getting {
@@ -64,23 +64,23 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.mohamedrejeb.richeditor.compose"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        consumerProguardFile("proguard-rules.pro")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlin {
-        jvmToolchain(8)
-    }
-}
+//android {
+//    namespace = "com.mohamedrejeb.richeditor.compose"
+//    compileSdk = libs.versions.android.compileSdk.get().toInt()
+//
+//    defaultConfig {
+//        minSdk = libs.versions.android.minSdk.get().toInt()
+//        consumerProguardFile("proguard-rules.pro")
+//    }
+//
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+//    }
+//    kotlin {
+//        jvmToolchain(8)
+//    }
+//}
 
 apiValidation {
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
