@@ -300,6 +300,12 @@ public class RichTextState internal constructor(
      * @param textRange The range of text to be replaced
      * @param text The new text to be inserted
      */
+    /**
+     * Replaces the text in the specified range with the provided text.
+     *
+     * @param textRange The range of text to be replaced
+     * @param text The new text to be inserted
+     */
     public fun replaceTextRange(
         textRange: TextRange,
         text: String
@@ -314,9 +320,18 @@ public class RichTextState internal constructor(
                     "but the end index is ${textRange.max}."
         }
 
-        removeTextRange(textRange)
-        addTextAfterSelection(text = text)
+        val originalText = textFieldValue.text
+        val newText = originalText.replaceRange(textRange.min, textRange.max, text)
+
+        // Update the text and set the selection to the end of the inserted text
+        onTextFieldValueChange(
+            newTextFieldValue = textFieldValue.copy(
+                text = newText,
+                selection = TextRange(textRange.min + text.length)
+            )
+        )
     }
+
 
     /**
      * Adds the provided text to the text field at the current selection.
@@ -1741,14 +1756,22 @@ public class RichTextState internal constructor(
                     (!config.preserveStyleOnEmptyLine || richSpan.paragraph.isEmpty()) &&
                     isSelectionAtNewRichSpan
                 ) {
-                    newParagraphFirstRichSpan.spanStyle = SpanStyle()
-                    newParagraphFirstRichSpan.richSpanStyle = RichSpanStyle.Default
+                    if (newParagraphFirstRichSpan != null) {
+                        newParagraphFirstRichSpan.spanStyle = SpanStyle()
+                    }
+                    if (newParagraphFirstRichSpan != null) {
+                        newParagraphFirstRichSpan.richSpanStyle = RichSpanStyle.Default
+                    }
                 } else if (
                     config.preserveStyleOnEmptyLine &&
                     isSelectionAtNewRichSpan
                 ) {
-                    newParagraphFirstRichSpan.spanStyle = currentSpanStyle
-                    newParagraphFirstRichSpan.richSpanStyle = currentRichSpanStyle
+                    if (newParagraphFirstRichSpan != null) {
+                        newParagraphFirstRichSpan.spanStyle = currentSpanStyle
+                    }
+                    if (newParagraphFirstRichSpan != null) {
+                        newParagraphFirstRichSpan.richSpanStyle = currentRichSpanStyle
+                    }
                 }
             }
 
